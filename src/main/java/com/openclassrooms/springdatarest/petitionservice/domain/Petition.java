@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 
 @Entity
+/**
+ * A Petition Domain Object
+ */
 public class Petition {
 
     @Id
