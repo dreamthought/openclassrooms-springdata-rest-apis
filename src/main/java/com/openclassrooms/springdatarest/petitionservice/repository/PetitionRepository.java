@@ -1,4 +1,7 @@
 package com.openclassrooms.springdatarest.petitionservice.repository;
 
-public class PetitionRepository {
+        import com.openclassrooms.springdatarest.petitionservice.domain.Petition;
+        import org.springframework.data.repository.CrudRepository;
+
+public interface PetitionRepository extends CrudRepository<Long, Petition> {
 }
