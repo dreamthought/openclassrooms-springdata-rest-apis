@@ -5,13 +5,15 @@ import com.openclassrooms.springdatarest.petitionservice.repository.PetitionRepo
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PetitionService {
 
     @Autowired
     private PetitionRepository petitionRepository;
 
-    public Iterable<Petition> listAllPetitions() {
-        return petitionRepository.findAll();
+    public List<Petition> listAllPetitions() {
+        return (List) petitionRepository.findAll();
     }
 }
