@@ -6,6 +6,11 @@ demonstrate the two together we we incrementally work through a solution.
 
 Individual steps are contained within the branches.
 
+# This Branch
+This branch contains a challenge. See if you can:
+* Add a GET endpoint which allows you to pass in a petition id and returns that  petition.
+* If you can, try and return a 404 (HttpStatus.NOT\_FOUND) when that petition doesn't exist.
+
 # To run
 
 ```./mvnw spring-boot:run```
@@ -15,3 +20,4 @@ Individual steps are contained within the branches.
 ```./mvnw test```
 
 Checkout the full course at Openclassrooms.com
+
