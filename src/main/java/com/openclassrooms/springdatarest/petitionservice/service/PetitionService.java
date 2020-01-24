@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PetitionService {
@@ -15,5 +16,9 @@ public class PetitionService {
 
     public List<Petition> listAllPetitions() {
         return (List) petitionRepository.findAll();
+    }
+
+    public Optional<Petition> fetchPetition(Long id) {
+        return petitionRepository.findById(id);
     }
 }
