@@ -29,11 +29,6 @@ public class Signature {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-
     /**
      * Gets the activist who signed
      * @return the activist

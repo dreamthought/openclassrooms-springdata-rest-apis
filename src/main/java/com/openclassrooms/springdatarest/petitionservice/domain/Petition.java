@@ -4,10 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-@Entity
+
 /**
  * A Petition Domain Object
  */
+@Entity
 public class Petition {
 
     @Id
@@ -16,13 +17,26 @@ public class Petition {
 
     private String title;
 
+    /**
+     * Returns the id of this petition
+     * @return id of petition
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * Sets the title of the petition
+     * @param title of petition
+     */
     public void setTitle(String title) {
         this.title = title;
     }
+
+    /**
+     * Returns the title of this petition
+     * @return title of petition
+     */
     public String getTitle() {
         return title;
     }
