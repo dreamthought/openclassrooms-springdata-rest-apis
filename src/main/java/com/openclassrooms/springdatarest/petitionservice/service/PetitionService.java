@@ -18,7 +18,7 @@ public class PetitionService {
         return (List) petitionRepository.findAll();
     }
 
-    public Optional<Petition> fetchPetition(Long id) {
+    public Optional<Petition> getPetition(Long id) {
         return petitionRepository.findById(id);
     }
 }
