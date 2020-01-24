@@ -46,11 +46,12 @@ class PetitionIntegrationTest {
     }
 
     @Test
-    @DisplayName("When a REST API client sends a GET /petition Then we should see puppies and kittens")
-    public void givenTwoPetitions_whenWeQueryTheCollection_thenWeShouldSeeACollection() throws Exception {
+    @DisplayName("When a REST API client sends a GET /petitions Then we should see puppies and kittens")
+    public void givenTwoPetitions_whenWeGetTheCollection_thenWeShouldSeeACollection() throws Exception {
         mvc.perform(get("/petitionservice/v1/petitions")).andExpect(status().is2xxSuccessful()).
                 andExpect(jsonPath("*", hasSize(2))).
                 andExpect(jsonPath("[0].title", is("Save the Kitten"))).
                 andExpect(jsonPath("[1].title", is("Save the Puppy")));
     }
+
 }
