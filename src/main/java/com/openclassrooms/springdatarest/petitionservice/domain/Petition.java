@@ -3,6 +3,8 @@ package com.openclassrooms.springdatarest.petitionservice.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.Set;
 
 
 /**
@@ -14,8 +16,9 @@ public class Petition {
     @Id
     @GeneratedValue
     private long id;
-
     private String title;
+    @OneToMany
+    private Set<Signature> backerSignatures;
 
     /**
      * Returns the id of this petition
