@@ -17,6 +17,7 @@ public class Petition {
     @GeneratedValue
     private long id;
     private String title;
+
     @OneToMany
     private Set<Signature> backerSignatures;
 
@@ -42,5 +43,13 @@ public class Petition {
      */
     public String getTitle() {
         return title;
+    }
+
+    /**
+     * Returns a Set of the Signatures for this petition
+     * @return signatures for this petition
+     */
+    public Set<Signature> getBackerSignatures() {
+        return backerSignatures;
     }
 }
