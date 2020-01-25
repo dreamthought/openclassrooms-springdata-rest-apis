@@ -15,6 +15,9 @@ public class Petition {
     private long id;
     private String title;
 
+    @ManyToOne
+    private Activist sponsor;
+
     @OneToMany
     private Set<Signature> backerSignatures;
 
@@ -49,4 +52,22 @@ public class Petition {
     public Set<Signature> getBackerSignatures() {
         return backerSignatures;
     }
+
+    /**
+     * Returns the petition's sponsor
+     * @return Activist sponsoring this petition
+     */
+    public Activist getSponsor() {
+        return sponsor;
+    }
+
+    /**
+     * Sets the sponsor of this petition
+     * @param sponsor Activist
+     */
+    public void setSponsor(Activist sponsor) {
+        this.sponsor = sponsor;
+    }
+
+
 }
