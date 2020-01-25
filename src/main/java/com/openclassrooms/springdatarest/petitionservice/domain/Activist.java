@@ -1,5 +1,6 @@
 package com.openclassrooms.springdatarest.petitionservice.domain;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -15,7 +16,10 @@ public class Activist {
     private Long id;
 
     private String name;
-    private String address;
+
+    @Embedded
+    private PostalAddress address;
+
     private String email;
 
     /**
@@ -46,7 +50,7 @@ public class Activist {
      * Returns the address of the activist
      * @return the address
      */
-    public String getAddress() {
+    public PostalAddress getAddress() {
         return address;
     }
 
@@ -54,7 +58,7 @@ public class Activist {
      * Sets the address of the activist
      * @param address of activist
      */
-    public void setAddress(String address) {
+    public void setAddress(PostalAddress address) {
         this.address = address;
     }
 
