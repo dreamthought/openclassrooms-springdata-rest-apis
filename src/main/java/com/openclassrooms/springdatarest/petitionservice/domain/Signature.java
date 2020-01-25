@@ -3,7 +3,6 @@ package com.openclassrooms.springdatarest.petitionservice.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
@@ -19,12 +18,10 @@ public class Signature {
 
     // An activist will sign many petitions
     @ManyToOne(optional = false)
-    @JoinColumn(nullable = false)
     private Activist signedBy;
 
     // Each signature must belong to a specific petition
     @ManyToOne(optional=false)
-    @JoinColumn(nullable=false)
     private Petition petition;
 
     private LocalDateTime signedAt;
@@ -87,5 +84,4 @@ public class Signature {
     public void setSponsor(Activist sponsor) {
         this.sponsor = sponsor;
     }
-
 }
