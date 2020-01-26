@@ -20,12 +20,10 @@ public class ActivistController {
 
     @GetMapping("/{id}")
     public Activist getActivist(@PathVariable String id) {
-        Optional<Activist> activist = activistService.getActivistById(Long.parseUnsignedLong(id));
-        if (activist.isEmpty()) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "Activist Not Found");
-        }
-        return activist.get();
+        return activistService.getActivistById(Long.parseUnsignedLong(id))
+                .orElseThrow(()->
+                        new ResponseStatusException(
+                                HttpStatus.NOT_FOUND, "Activist Not Found"));
     }
 
     @PostMapping
