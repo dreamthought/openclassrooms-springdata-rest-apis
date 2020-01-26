@@ -1,5 +1,8 @@
 package com.openclassrooms.springdatarest.petitionservice.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -18,6 +21,7 @@ public class Petition {
     @ManyToOne
     private Activist sponsor;
 
+    @JsonManagedReference
     @OneToMany
     private Set<Signature> backerSignatures;
 

@@ -1,5 +1,8 @@
 package com.openclassrooms.springdatarest.petitionservice.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -21,6 +24,7 @@ public class Signature {
     private Activist signedBy;
 
     // Each signature must belong to a specific petition
+    @JsonBackReference
     @ManyToOne(optional=false)
     private Petition petition;
 

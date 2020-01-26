@@ -23,6 +23,7 @@ public class PetitionService {
     public Signature backPetition(Long petitionId, Signature signature) {
         Petition petition = petitionRepository.findById(petitionId)
                 .orElseThrow(()->new EntityNotFoundException("Cound not find petition " + petitionId));
+
         // save signature
         signature = signatureRepository.save(signature);
 
