@@ -36,4 +36,9 @@ public class PetitionController {
         }
         return petition.get();
     }
+
+    @PostMapping
+    public Petition postPetition(@RequestBody Petition petition) {
+        return petitionService.createPetition(petition);
+    }
 }
