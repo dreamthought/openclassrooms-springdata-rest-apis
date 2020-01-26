@@ -24,7 +24,7 @@ public class Signature {
     @ManyToOne(optional=false)
     private Petition petition;
 
-    private LocalDateTime signedAt;
+    private LocalDateTime signedAt = LocalDateTime.now();
 
     @ManyToOne
     private Activist sponsor;
