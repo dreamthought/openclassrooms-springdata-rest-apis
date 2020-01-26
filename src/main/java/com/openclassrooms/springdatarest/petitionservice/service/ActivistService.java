@@ -5,6 +5,7 @@ import com.openclassrooms.springdatarest.petitionservice.repository.ActivistRepo
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
+import java.util.Optional;
 
 /**
  * Provides capabilities for creating and managing Activists
@@ -27,10 +28,10 @@ public class ActivistService {
     /**
      * Fetches an Activist from the database
      * @param id of the activist
-     * @return Activist retrieved
+     * @return Optional&gt;Activist&lt; retrieved
      * @throws EntityNotFoundException when the Activist is not there
      */
-    public Activist getActivistById(Long id) {
-        return activistRepository.getOne(id);
+    public Optional<Activist> getActivistById(Long id) {
+        return activistRepository.findById(id);
     }
 }
