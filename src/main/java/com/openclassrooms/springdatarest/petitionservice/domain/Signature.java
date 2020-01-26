@@ -24,6 +24,11 @@ public class Signature {
     @ManyToOne(optional=false)
     private Petition petition;
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
     private LocalDateTime signedAt = LocalDateTime.now();
 
     @ManyToOne
@@ -84,4 +89,21 @@ public class Signature {
     public void setSponsor(Activist sponsor) {
         this.sponsor = sponsor;
     }
+
+    /**
+     * Returns the signed petition
+     * @return Petition signed
+     */
+    public Petition getPetition() {
+        return petition;
+    }
+
+    /**
+     * Sets the petition against this signature
+     * @param petition being signed
+     */
+    public void setPetition(Petition petition) {
+        this.petition = petition;
+    }
+
 }

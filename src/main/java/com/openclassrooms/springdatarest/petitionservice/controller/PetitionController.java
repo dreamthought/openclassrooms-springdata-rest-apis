@@ -1,12 +1,14 @@
 package com.openclassrooms.springdatarest.petitionservice.controller;
 
 import com.openclassrooms.springdatarest.petitionservice.domain.Petition;
+import com.openclassrooms.springdatarest.petitionservice.domain.Signature;
 import com.openclassrooms.springdatarest.petitionservice.service.PetitionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,5 +42,15 @@ public class PetitionController {
     @PostMapping
     public Petition postPetition(@RequestBody Petition petition) {
         return petitionService.createPetition(petition);
+    }
+
+    @PostMapping("/{id}/backer-signatures")
+    public Signature postBackerSignature(@PathVariable Long id, @RequestBody Signature signature) {
+        try {
+            return petitionService.backPetition(id, signature);
+        } catch (EntityNotFoundException e) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "Petition Not Found");
+        }
     }
 }
