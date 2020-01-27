@@ -15,7 +15,7 @@ public class Petition {
     private long id;
     private String title;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     private Activist sponsor;
 
     @OneToMany
