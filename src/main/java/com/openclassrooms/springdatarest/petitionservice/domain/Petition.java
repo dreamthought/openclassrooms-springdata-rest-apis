@@ -22,7 +22,7 @@ public class Petition {
     private Activist sponsor;
 
     @JsonManagedReference
-    @OneToMany
+    @OneToMany(orphanRemoval = true)
     private Set<Signature> backerSignatures;
 
     /**
