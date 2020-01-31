@@ -4,6 +4,8 @@ import com.openclassrooms.springdatarest.petitionservice.domain.Petition;
 import com.openclassrooms.springdatarest.petitionservice.domain.Signature;
 import com.openclassrooms.springdatarest.petitionservice.repository.PetitionRepository;
 import com.openclassrooms.springdatarest.petitionservice.repository.SignatureRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,8 @@ import java.util.Optional;
 
 @Service
 public class PetitionService {
+
+    private static Logger LOGGER = LoggerFactory.getLogger(PetitionService.class.getName());
 
     @Autowired
     private PetitionRepository petitionRepository;
@@ -43,5 +47,15 @@ public class PetitionService {
 
     public Petition createPetition(Petition petition) {
         return petitionRepository.save(petition);
+    }
+
+    /**
+     * Removes a petition from our repository
+     * @param petitionId of the petition to be removed
+     */
+    public void deletePetition(long petitionId) {
+        LOGGER.info("Deleting petition:", petitionId);
+        petitionRepository.deleteById(petitionId);
+        LOGGER.info("Removed petition:", petitionId);
     }
 }
