@@ -53,4 +53,10 @@ public class PetitionController {
                     HttpStatus.NOT_FOUND, "Petition Not Found");
         }
     }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{id}")
+    public void deletePetition(@PathVariable Long id) {
+        petitionService.deletePetition(id);
+    }
 }
