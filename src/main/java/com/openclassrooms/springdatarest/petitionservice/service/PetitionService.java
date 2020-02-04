@@ -58,4 +58,8 @@ public class PetitionService {
         petitionRepository.deleteById(petitionId);
         LOGGER.info("Removed petition:", petitionId);
     }
+
+    public Petition modifyPetition(Petition petition) {
+        return petitionRepository.save(petition);
+    }
 }

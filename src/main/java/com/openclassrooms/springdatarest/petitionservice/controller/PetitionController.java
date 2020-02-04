@@ -59,4 +59,11 @@ public class PetitionController {
     public void deletePetition(@PathVariable Long id) {
         petitionService.deletePetition(id);
     }
+
+    @PutMapping("/{id}")
+    public Petition putPetition(@PathVariable Long id, @RequestBody Petition petition){
+        return petitionService.modifyPetition(petition);
+    }
+
+
 }
