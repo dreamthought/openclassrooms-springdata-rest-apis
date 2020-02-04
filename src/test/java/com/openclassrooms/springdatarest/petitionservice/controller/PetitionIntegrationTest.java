@@ -2,8 +2,10 @@ package com.openclassrooms.springdatarest.petitionservice.controller;
 
 import com.openclassrooms.springdatarest.petitionservice.domain.Activist;
 import com.openclassrooms.springdatarest.petitionservice.domain.Petition;
+import com.openclassrooms.springdatarest.petitionservice.domain.Signature;
 import com.openclassrooms.springdatarest.petitionservice.repository.ActivistRepository;
 import com.openclassrooms.springdatarest.petitionservice.repository.PetitionRepository;
+import com.openclassrooms.springdatarest.petitionservice.repository.SignatureRepository;
 import com.openclassrooms.springdatarest.petitionservice.service.PetitionService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,8 +16,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.web.servlet.MockMvc;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -30,6 +34,9 @@ class PetitionIntegrationTest {
     PetitionRepository petitionRepository;
 
     @Autowired
+    SignatureRepository signatureRepository;
+
+    @Autowired
     ActivistRepository activistRepository;
 
     @Autowired
@@ -37,14 +44,18 @@ class PetitionIntegrationTest {
     @Autowired
     PetitionController petitionController;
 
+
+
     @Autowired
     MockMvc mvc;
     private long puppyPetitionId;
+    Petition puppyPetition;
+    private Activist sponsor;
 
     @BeforeEach
     public void setUpFixtures() {
         // Setup Activist
-        Activist sponsor = new Activist();
+        sponsor = new Activist();
         sponsor.setName("Spencer d'Sponsor");
         sponsor = activistRepository.save(sponsor);
 
@@ -55,7 +66,7 @@ class PetitionIntegrationTest {
         petitionRepository.save(kittenPetition);
 
         // Setup Puppy Petition
-        Petition puppyPetition = new Petition();
+        puppyPetition = new Petition();
         puppyPetition.setTitle("Save the Puppy");
         puppyPetition.setSponsor(sponsor);
         petitionRepository.save(puppyPetition);
@@ -77,4 +88,27 @@ class PetitionIntegrationTest {
         mvc.perform(get("/petitionservice/v1/petitions/" + puppyPetitionId )).andExpect(status().is2xxSuccessful()).
                 andExpect(jsonPath("$.title", is("Save the Puppy")));
     }
+
+
+    @Test
+    @DisplayName("And the petition is signed When a REST API client sends a DELETE /petitions/2 then we should delete it")
+    public void givenASignedPetitions_whenWeDeleteTheEntity_thenWeShouldRemoveIt() throws Exception {
+        // Arrange : Sign the Petition
+        Signature signature = new Signature();
+        signature.setSignedBy(sponsor);
+        signature.setPetition(petitionRepository.findById(puppyPetitionId).get());
+        signatureRepository.save(signature);
+        // Add the signature to the petition
+        puppyPetition.getBackerSignatures().add(signature);
+        petitionRepository.save(puppyPetition);
+
+        // ACT : Delete the petition with the REST API
+        mvc.perform(delete("/petitionservice/v1/petitions/" + puppyPetitionId )).
+                andExpect(status().is2xxSuccessful());
+
+        // ASSERT : Check the database
+        assertThat( petitionRepository.findById(puppyPetitionId).isEmpty(), is(true) );
+        assertThat( signatureRepository.findById(signature.getId()).isEmpty(), is(true));
+    }
+
 }

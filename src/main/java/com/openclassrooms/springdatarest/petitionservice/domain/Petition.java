@@ -3,6 +3,7 @@ package com.openclassrooms.springdatarest.petitionservice.domain;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -22,7 +23,7 @@ public class Petition {
 
     @JsonManagedReference
     @OneToMany(orphanRemoval = true)
-    private Set<Signature> backerSignatures;
+    private Set<Signature> backerSignatures = new HashSet<>();
 
     /**
      * Returns the id of this petition
