@@ -40,11 +40,13 @@ public class PetitionController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Petition postPetition(@RequestBody Petition petition) {
         return petitionService.createPetition(petition);
     }
 
     @PostMapping("/{id}/backer-signatures")
+    @ResponseStatus(HttpStatus.CREATED)
     public Signature postBackerSignature(@PathVariable Long id, @RequestBody Signature signature) {
         try {
             return petitionService.backPetition(id, signature);
