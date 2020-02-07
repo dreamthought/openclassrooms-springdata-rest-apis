@@ -59,7 +59,40 @@ public class PetitionService {
         LOGGER.info("Removed petition:", petitionId);
     }
 
-    public Petition modifyPetition(Petition petition) {
-        return petitionRepository.save(petition);
+    /**
+     * Modify a petition
+     * @param petition entity
+     * @return PetitionModification to indicate if we've created or updated
+     */
+    public PetitionModification modifyPetition(Petition petition) {
+        Long id = petition.getId();
+
+        // We have a valid id and it belongs to an existing petition
+        Boolean petitionExists = null != id && petitionRepository.existsById(id);
+
+        // Merge the petitions
+        if (petitionExists) {
+            petition = mergeWithStoredPetition(id, petition);
+        }
+
+        // Create or update the petition
+        petitionRepository.save(petition);
+
+        // Indicate the Petition was created
+        if (!petitionExists) {
+            return PetitionModification.PETITION_CREATED;
+        }
+
+        // Indicate the petition was modified
+        return PetitionModification.PETITION_MODIFIED;
+    }
+
+    private Petition mergeWithStoredPetition(Long id, Petition petition) {
+        Petition currentPetition = getPetition(id).get();
+        // Copy over ALL the fields but backerSignatures
+        currentPetition.setTitle(petition.getTitle());
+        currentPetition.setSponsor(petition.getSponsor());
+        petition = currentPetition;
+        return petition;
     }
 }

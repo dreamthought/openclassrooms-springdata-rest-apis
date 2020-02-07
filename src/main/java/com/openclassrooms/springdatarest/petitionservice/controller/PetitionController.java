@@ -2,15 +2,19 @@ package com.openclassrooms.springdatarest.petitionservice.controller;
 
 import com.openclassrooms.springdatarest.petitionservice.domain.Petition;
 import com.openclassrooms.springdatarest.petitionservice.domain.Signature;
+import com.openclassrooms.springdatarest.petitionservice.service.PetitionModification;
 import com.openclassrooms.springdatarest.petitionservice.service.PetitionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
+
+import static com.openclassrooms.springdatarest.petitionservice.service.PetitionModification.PETITION_CREATED;
 
 @RestController
 @RequestMapping("/petitionservice/v1/petitions")
@@ -63,9 +67,22 @@ public class PetitionController {
     }
 
     @PutMapping("/{id}")
-    public Petition putPetition(@PathVariable Long id, @RequestBody Petition petition){
-        return petitionService.modifyPetition(petition);
-    }
+    public ResponseEntity<Petition> putPetition(@PathVariable Long id, @RequestBody Petition petition){
+        // Indicate that this is an invalid request
+        // The id in the path differs from the id in the Petition
+        if (id != petition.getId()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(petition);
+        }
 
+        PetitionModification modification = petitionService.modifyPetition(petition);
+
+        // return 201 on create
+        if (PETITION_CREATED.equals(modification)) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(petition);
+        }
+
+        // return 200 on update
+        return ResponseEntity.status(HttpStatus.OK).body(petition);
+    }
 
 }
