@@ -71,7 +71,9 @@ public class PetitionController {
         // Indicate that this is an invalid request
         // The id in the path differs from the id in the Petition
         if (id != petition.getId()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(petition);
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).
+                    header("X-ERROR-REASON", "Your id's don't agree!" ).
+                    body(petition);
         }
 
         PetitionModification modification = petitionService.modifyPetition(petition);
