@@ -34,4 +34,31 @@ public class ActivistService {
     public Optional<Activist> getActivistById(Long id) {
         return activistRepository.findById(id);
     }
+
+
+    public ModificationType updateActivist(Activist activist) {
+        // Check if the activist already exists
+        Long activistId = activist.getId();
+        Boolean activistExists = null != activistId && activistRepository.existsById(activistId);
+
+        // Fetch the DB version
+        // Create or update the activist
+        if (! activistExists) {
+            activistRepository.save(activist);
+            return ModificationType.CREATED;
+        }
+
+        Activist storedActivist = mergeWithDbActivist(activist, activistId);
+        activistRepository.save(storedActivist);
+
+        return ModificationType.MODIFIED;
+    }
+
+    private Activist mergeWithDbActivist(Activist activist, Long activistId) {
+        Activist storedActivist = getActivistById(activistId).get();
+        storedActivist.setAddress(activist.getAddress());
+        storedActivist.setName(activist.getName());
+        storedActivist.setEmail(activist.getEmail());
+        return storedActivist;
+    }
 }

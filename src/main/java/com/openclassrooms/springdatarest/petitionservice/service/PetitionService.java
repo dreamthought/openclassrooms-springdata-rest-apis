@@ -64,7 +64,7 @@ public class PetitionService {
      * @param petition entity
      * @return PetitionModification to indicate if we've created or updated
      */
-    public PetitionModification modifyPetition(Petition petition) {
+    public ModificationType modifyPetition(Petition petition) {
         Long id = petition.getId();
 
         // We have a valid id and it belongs to an existing petition
@@ -80,11 +80,11 @@ public class PetitionService {
 
         // Indicate the Petition was created
         if (!petitionExists) {
-            return PetitionModification.PETITION_CREATED;
+            return ModificationType.CREATED;
         }
 
         // Indicate the petition was modified
-        return PetitionModification.PETITION_MODIFIED;
+        return ModificationType.MODIFIED;
     }
 
     private Petition mergeWithStoredPetition(Long id, Petition petition) {
