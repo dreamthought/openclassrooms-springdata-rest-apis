@@ -7,6 +7,7 @@ import com.openclassrooms.springdatarest.petitionservice.repository.ActivistRepo
 import com.openclassrooms.springdatarest.petitionservice.repository.PetitionRepository;
 import com.openclassrooms.springdatarest.petitionservice.repository.SignatureRepository;
 import com.openclassrooms.springdatarest.petitionservice.service.PetitionService;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,13 +15,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -109,6 +111,22 @@ class PetitionIntegrationTest {
         // ASSERT : Check the database
         assertThat( petitionRepository.findById(puppyPetitionId).isEmpty(), is(true) );
         assertThat( signatureRepository.findById(signature.getId()).isEmpty(), is(true));
+    }
+
+    @DisplayName("When modifying the title with PUT then the petition should represent this")
+    public void givenAPuppyPetition_whenModifyingTheTitleWithPut_thenTheTitleShouldBeCorrect() throws Exception {
+        // Arrange in @BeforeEach
+        JSONObject putJson = new JSONObject();
+        String mutatedTitle = "Mutated title";
+        putJson.put("title", mutatedTitle);
+        putJson.put("id", puppyPetitionId);
+
+        // Act & Assert
+        mvc.perform(MockMvcRequestBuilders.put("/petitionservice/v1/petitions")
+                .contentType(MediaType.APPLICATION_JSON).content(putJson.toString())).
+                andExpect( status().is2xxSuccessful() ).
+                andExpect( jsonPath("$.title", is(mutatedTitle)));
+
     }
 
 }

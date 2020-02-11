@@ -24,6 +24,7 @@ public class Activist {
 
     private String email;
 
+
     /**
      * Gets the id of the current Activist
      * @return id of this entity
@@ -31,6 +32,15 @@ public class Activist {
     public Long getId() {
         return id;
     }
+
+    /**
+     * Can be used to set the id
+     * @param id of this entity
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
 
     /**
      * Get the name of the activist
