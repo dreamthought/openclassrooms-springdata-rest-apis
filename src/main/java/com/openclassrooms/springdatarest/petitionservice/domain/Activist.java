@@ -33,6 +33,14 @@ public class Activist {
     }
 
     /**
+     * Sets the id of this activist
+     * @param id of activist
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
      * Get the name of the activist
      * @return the name
      */
