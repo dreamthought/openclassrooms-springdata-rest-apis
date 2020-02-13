@@ -21,7 +21,6 @@ public class Petition {
     @ManyToOne(optional = false)
     private Activist sponsor;
 
-    @JsonManagedReference
     @OneToMany(orphanRemoval = true)
     private Set<Signature> backerSignatures = new HashSet<>();
 
