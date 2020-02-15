@@ -11,10 +11,6 @@ import java.util.Optional;
 @RepositoryRestResource(collectionResourceRel = "patch-petitions", path = "patch-petitions")
 public interface PetitionRepository extends CrudRepository<Petition, Long> {
 
-    @RestResource(exported = true)
-    @Override
-    <S extends Petition> S save(S s);
-
     @RestResource(exported = false)
     @Override
     Optional<Petition> findById(Long aLong);
