@@ -22,4 +22,12 @@ public interface PetitionRepository extends CrudRepository<Petition, Long> {
     @RestResource(exported = false)
     @Override
     Iterable<Petition> findAll();
+
+    @RestResource(exported = false)
+    @Override
+    void deleteById(Long aLong);
+
+    @RestResource(exported = false)
+    @Override
+    void deleteAll();
 }
