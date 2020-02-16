@@ -12,6 +12,7 @@ public class SpringDataRestConfig implements RepositoryRestConfigurer {
 
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config) {
+        // Configure Petition
         config.getExposureConfiguration()
                 // Specify entity
                 .forDomainType(Petition.class)
@@ -23,6 +24,13 @@ public class SpringDataRestConfig implements RepositoryRestConfigurer {
                 .withCollectionExposure((collectionMetdata, collectionHttpMethods) ->
                         collectionHttpMethods.disable(
                                 HttpMethod.GET, HttpMethod.POST, HttpMethod.PUT, HttpMethod.DELETE));
+
+        // Configure Signature
+        config.getExposureConfiguration().forDomainType(Signature.class)
+                .withItemExposure(((metdata, httpMethods) ->
+                        httpMethods.disable(HttpMethod.DELETE, HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH)))
+                .withCollectionExposure((metdata, httpMethods) ->
+                        httpMethods.disable(HttpMethod.DELETE, HttpMethod.POST, HttpMethod.PUT, HttpMethod.PATCH));
 
     }
 }
