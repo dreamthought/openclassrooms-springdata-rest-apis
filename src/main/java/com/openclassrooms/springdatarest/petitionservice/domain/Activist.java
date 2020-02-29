@@ -18,6 +18,7 @@ public class Activist {
     private Long id;
 
     private String name;
+    private String surname;
 
     @Embedded
     private PostalAddress address;
