@@ -19,6 +19,15 @@ public class Activist {
 
     private String name;
     private String surname;
+    private String middlename;
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
 
     @Embedded
     private PostalAddress address;
