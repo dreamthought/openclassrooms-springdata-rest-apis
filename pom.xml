@@ -64,7 +64,6 @@
 				<artifactId>liquibase-maven-plugin</artifactId>
 				<version>3.8.2</version>
 				<configuration>
-					<!-- diffChangeLogFile>src/main/resources/db/changelog/diff.yaml</diffChangeLogFile -->
 					<propertyFile>src/main/resources/liquibase.properties</propertyFile>
 					<outputDefaultSchema>true</outputDefaultSchema>
 					<outputDefaultCatalog>true</outputDefaultCatalog>
