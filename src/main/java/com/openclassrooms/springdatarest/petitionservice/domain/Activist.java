@@ -1,11 +1,5 @@
 package com.openclassrooms.springdatarest.petitionservice.domain;
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * An activist is the user of this system who backs and sponsors campaigns
@@ -16,18 +10,11 @@ public class Activist {
     @Id
     @GeneratedValue
     private Long id;
-
     private String name;
     private String surname;
+
+    @Column(name="MIDDLENAME")
     private String middlename;
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
 
     @Embedded
     private PostalAddress address;
@@ -68,6 +55,22 @@ public class Activist {
         this.name = name;
     }
 
+
+    /**
+     * Gets the surname of the activist
+     */
+    public String getSurname() {
+        return surname;
+    }
+    /**
+     * Sets the surname of the activist
+     * @param surname of activist
+     */
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+
     /**
      * Returns the address of the activist
      * @return the address
@@ -100,5 +103,21 @@ public class Activist {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    /**
+     * Get the middle name of the activist
+     * @return the middle name
+     */
+    public String getMiddlename() {
+        return middlename;
+    }
+    /**
+     * Sets the middlename of the activist
+     * @param middlename of activist
+     */
+    public void setMiddlename(String middlename) {
+        this.middlename = middlename;
+    }
+
 
 }
