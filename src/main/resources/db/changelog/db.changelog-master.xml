@@ -1,0 +1,101 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-3.8.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet author="raf (generated)" id="1584311254626-1">
+        <createSequence catalogName="OC.PETITIONSERVICE.DB" schemaName="PUBLIC" sequenceName="HIBERNATE_SEQUENCE"/>
+    </changeSet>
+    <changeSet author="raf (generated)" id="1584311254626-2">
+        <createTable catalogName="OC.PETITIONSERVICE.DB" schemaName="PUBLIC" tableName="ACTIVIST">
+            <column name="ID" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="CONSTRAINT_C"/>
+            </column>
+            <column name="STREET_ADDRESS" type="VARCHAR(255)"/>
+            <column name="ZIP_CODE" type="VARCHAR(255)"/>
+            <column name="EMAIL" type="VARCHAR(255)"/>
+            <column name="NAME" type="VARCHAR(255)"/>
+            <column name="SURNAME" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="raf (generated)" id="1584311254626-3">
+        <createTable catalogName="OC.PETITIONSERVICE.DB" schemaName="PUBLIC" tableName="PETITION">
+            <column name="ID" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="CONSTRAINT_4"/>
+            </column>
+            <column name="TITLE" type="VARCHAR(255)"/>
+            <column name="SPONSOR_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="raf (generated)" id="1584311254626-4">
+        <createTable catalogName="OC.PETITIONSERVICE.DB" schemaName="PUBLIC" tableName="PETITION_BACKER_SIGNATURES">
+            <column name="PETITION_ID" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="CONSTRAINT_8"/>
+            </column>
+            <column name="BACKER_SIGNATURES_ID" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="CONSTRAINT_8"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="raf (generated)" id="1584311254626-5">
+        <createTable catalogName="OC.PETITIONSERVICE.DB" schemaName="PUBLIC" tableName="SIGNATURE">
+            <column name="ID" type="BIGINT">
+                <constraints primaryKey="true" primaryKeyName="CONSTRAINT_E"/>
+            </column>
+            <column name="SIGNED_AT" type="TIMESTAMP"/>
+            <column name="PETITION_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SIGNED_BY_ID" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="SPONSOR_ID" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="raf (generated)" id="1584311254626-6">
+        <addUniqueConstraint catalogName="OC.PETITIONSERVICE.DB" columnNames="BACKER_SIGNATURES_ID" constraintName="UK_EH6EWXLGY6FMG5F2Q2DDMB8LD" schemaName="PUBLIC" tableName="PETITION_BACKER_SIGNATURES"/>
+    </changeSet>
+    <changeSet author="raf (generated)" id="1584311254626-7">
+        <createIndex catalogName="OC.PETITIONSERVICE.DB" indexName="FK2WPIDGFK63DVI5FO9G9RIMYKA_INDEX_4" schemaName="PUBLIC" tableName="PETITION">
+            <column name="SPONSOR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="raf (generated)" id="1584311254626-8">
+        <createIndex catalogName="OC.PETITIONSERVICE.DB" indexName="FK6R8XE03XQJL68KVN2J3GLV5V8_INDEX_8" schemaName="PUBLIC" tableName="PETITION_BACKER_SIGNATURES">
+            <column name="PETITION_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="raf (generated)" id="1584311254626-9">
+        <createIndex catalogName="OC.PETITIONSERVICE.DB" indexName="FKB94VHBYQRSI0I9ANM63JRNK7L_INDEX_E" schemaName="PUBLIC" tableName="SIGNATURE">
+            <column name="SIGNED_BY_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="raf (generated)" id="1584311254626-10">
+        <createIndex catalogName="OC.PETITIONSERVICE.DB" indexName="FKEQ691F7R1L7Y22GL8AJ9F983I_INDEX_E" schemaName="PUBLIC" tableName="SIGNATURE">
+            <column name="PETITION_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="raf (generated)" id="1584311254626-11">
+        <createIndex catalogName="OC.PETITIONSERVICE.DB" indexName="FKOB9VQ0TWKSQLQJ8IGQEGMBHJ0_INDEX_E" schemaName="PUBLIC" tableName="SIGNATURE">
+            <column name="SPONSOR_ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="raf (generated)" id="1584311254626-12">
+        <addForeignKeyConstraint baseColumnNames="SPONSOR_ID" baseTableCatalogName="OC.PETITIONSERVICE.DB" baseTableName="PETITION" baseTableSchemaName="PUBLIC" constraintName="FK2WPIDGFK63DVI5FO9G9RIMYKA" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableCatalogName="OC.PETITIONSERVICE.DB" referencedTableName="ACTIVIST" referencedTableSchemaName="PUBLIC" validate="true"/>
+    </changeSet>
+    <changeSet author="raf (generated)" id="1584311254626-13">
+        <addForeignKeyConstraint baseColumnNames="PETITION_ID" baseTableCatalogName="OC.PETITIONSERVICE.DB" baseTableName="PETITION_BACKER_SIGNATURES" baseTableSchemaName="PUBLIC" constraintName="FK6R8XE03XQJL68KVN2J3GLV5V8" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableCatalogName="OC.PETITIONSERVICE.DB" referencedTableName="PETITION" referencedTableSchemaName="PUBLIC" validate="true"/>
+    </changeSet>
+    <changeSet author="raf (generated)" id="1584311254626-14">
+        <addForeignKeyConstraint baseColumnNames="SIGNED_BY_ID" baseTableCatalogName="OC.PETITIONSERVICE.DB" baseTableName="SIGNATURE" baseTableSchemaName="PUBLIC" constraintName="FKB94VHBYQRSI0I9ANM63JRNK7L" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableCatalogName="OC.PETITIONSERVICE.DB" referencedTableName="ACTIVIST" referencedTableSchemaName="PUBLIC" validate="true"/>
+    </changeSet>
+    <changeSet author="raf (generated)" id="1584311254626-15">
+        <addForeignKeyConstraint baseColumnNames="PETITION_ID" baseTableCatalogName="OC.PETITIONSERVICE.DB" baseTableName="SIGNATURE" baseTableSchemaName="PUBLIC" constraintName="FKEQ691F7R1L7Y22GL8AJ9F983I" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableCatalogName="OC.PETITIONSERVICE.DB" referencedTableName="PETITION" referencedTableSchemaName="PUBLIC" validate="true"/>
+    </changeSet>
+    <changeSet author="raf (generated)" id="1584311254626-16">
+        <addForeignKeyConstraint baseColumnNames="BACKER_SIGNATURES_ID" baseTableCatalogName="OC.PETITIONSERVICE.DB" baseTableName="PETITION_BACKER_SIGNATURES" baseTableSchemaName="PUBLIC" constraintName="FKFIB5JU9XEHWY58CPBUGOLO45J" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableCatalogName="OC.PETITIONSERVICE.DB" referencedTableName="SIGNATURE" referencedTableSchemaName="PUBLIC" validate="true"/>
+    </changeSet>
+    <changeSet author="raf (generated)" id="1584311254626-17">
+        <addForeignKeyConstraint baseColumnNames="SPONSOR_ID" baseTableCatalogName="OC.PETITIONSERVICE.DB" baseTableName="SIGNATURE" baseTableSchemaName="PUBLIC" constraintName="FKOB9VQ0TWKSQLQJ8IGQEGMBHJ0" deferrable="false" initiallyDeferred="false" onDelete="RESTRICT" onUpdate="RESTRICT" referencedColumnNames="ID" referencedTableCatalogName="OC.PETITIONSERVICE.DB" referencedTableName="ACTIVIST" referencedTableSchemaName="PUBLIC" validate="true"/>
+    </changeSet>
+    <include file="db/changelog/activist-middlename.xml"/>
+</databaseChangeLog>
