@@ -4,6 +4,10 @@ import com.openclassrooms.springdatarest.petitionservice.domain.Activist;
 import com.openclassrooms.springdatarest.petitionservice.repository.ActivistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.EntityNotFoundException;
 import java.util.Optional;
 
@@ -11,6 +15,7 @@ import java.util.Optional;
  * Provides capabilities for creating and managing Activists
  */
 @Service
+@Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
 public class ActivistService {
 
     @Autowired
