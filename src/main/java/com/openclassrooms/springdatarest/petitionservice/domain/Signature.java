@@ -67,18 +67,18 @@ public class Signature {
     }
 
     /**
-     * Returns the sponsor of this Petition
-     * @return an Activist sponsor
+     * Returns the signed petition
+     * @return Petition signed
      */
-    public Activist getSponsor() {
-        return sponsor;
+    public Petition getPetition() {
+        return petition;
     }
 
     /**
-     * Sets the sponsor for this Petition
-     * @param sponsor
+     * Sets the petition against this signature
+     * @param petition being signed
      */
-    public void setSponsor(Activist sponsor) {
-        this.sponsor = sponsor;
+    public void setPetition(Petition petition) {
+        this.petition = petition;
     }
 }
