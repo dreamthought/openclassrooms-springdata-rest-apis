@@ -79,22 +79,6 @@ public class Signature {
     }
 
     /**
-     * Returns the sponsor of this Petition
-     * @return an Activist sponsor
-     */
-    public Activist getSponsor() {
-        return sponsor;
-    }
-
-    /**
-     * Sets the sponsor for this Petition
-     * @param sponsor
-     */
-    public void setSponsor(Activist sponsor) {
-        this.sponsor = sponsor;
-    }
-
-    /**
      * Returns the signed petition
      * @return Petition signed
      */
