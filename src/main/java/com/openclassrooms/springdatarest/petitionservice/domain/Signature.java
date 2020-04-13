@@ -35,9 +35,6 @@ public class Signature {
 
     private LocalDateTime signedAt = LocalDateTime.now();
 
-    @ManyToOne
-    private Activist sponsor;
-
     /**
      * Gets the Identity of this petition
      * @return id of the petition
