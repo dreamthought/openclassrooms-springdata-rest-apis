@@ -26,9 +26,6 @@ public class Signature {
 
     private LocalDateTime signedAt;
 
-    @ManyToOne
-    private Activist sponsor;
-
     /**
      * Gets the Identity of this petition
      * @return id of the petition
