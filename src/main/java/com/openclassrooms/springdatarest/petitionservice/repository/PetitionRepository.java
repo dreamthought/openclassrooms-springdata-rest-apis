@@ -16,7 +16,7 @@ import java.util.Optional;
 @RepositoryRestResource(collectionResourceRel = "patch-petitions", path = "patch-petitions")
 public interface PetitionRepository extends CrudRepository<Petition, Long> {
 
-    @RestResource(exported = true)
+    @RestResource(exported = false)
     List<Petition> findByTitleContains(@RequestParam String filter);
 
     @RestResource(exported = false)
