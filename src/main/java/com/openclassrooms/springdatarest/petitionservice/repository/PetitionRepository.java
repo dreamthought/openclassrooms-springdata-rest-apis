@@ -20,6 +20,9 @@ public interface PetitionRepository extends CrudRepository<Petition, Long> {
     List<Petition> findByTitleContains(@RequestParam String filter);
 
     @RestResource(exported = false)
+    List<Petition> findByBackerSignatures_signedBy_address_zipCode(String zipCode);
+
+    @RestResource(exported = false)
     @Override
     Optional<Petition> findById(Long aLong);
 

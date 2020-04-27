@@ -102,4 +102,8 @@ public class PetitionService {
         petition = currentPetition;
         return petition;
     }
+
+    public List<Petition> searchPetitionByZip(String zip) {
+        return petitionRepository.findByBackerSignatures_signedBy_address_zipCode(zip);
+    }
 }

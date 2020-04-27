@@ -33,6 +33,11 @@ public class PetitionController {
         return petitionService.listAllPetitions();
     }
 
+    @GetMapping("/zip/{zip}")
+    public List<Petition> getPetitionsByZip(@PathVariable String zip) {
+        return petitionService.searchPetitionByZip(zip);
+    }
+
     @GetMapping("/{id}")
     public Petition getPetition(@PathVariable String id) {
         // TODO: If you were building this for Real you'd return a 404
