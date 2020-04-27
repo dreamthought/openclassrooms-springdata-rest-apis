@@ -24,8 +24,12 @@ public class PetitionController {
     private PetitionService petitionService;
 
     // HTTP Handlers
-    @GetMapping()
-    public List<Petition> listPetitions() {
+    @GetMapping
+    public List<Petition> listPetitions(@RequestParam(required = false) String filter) {
+        if (null != filter && !filter.isEmpty()) {
+            return petitionService.searchPetitionTitles(filter);
+        }
+
         return petitionService.listAllPetitions();
     }
 
@@ -51,7 +55,7 @@ public class PetitionController {
 
     @PostMapping("/{id}/backer-signatures")
     @ResponseStatus(HttpStatus.CREATED)
-    public Signature postBackerSignature(@PathVariable Long id, @RequestBody Signature signature) {
+    public Signature postBackerSignature(@PathVariable Long id, @RequestBody Signature signature) throws InterruptedException {
         try {
             return petitionService.backPetition(id, signature);
         } catch (EntityNotFoundException e) {

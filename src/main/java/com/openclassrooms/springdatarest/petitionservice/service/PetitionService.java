@@ -26,11 +26,16 @@ public class PetitionService {
     @Autowired
     private SignatureRepository signatureRepository;
 
+    public List<Petition> searchPetitionTitles(String searchTerm) {
+        return petitionRepository.findByTitleContains(searchTerm);
+    }
+
     public Signature backPetition(Long petitionId, Signature signature) {
         Petition petition = petitionRepository.findById(petitionId)
                 .orElseThrow(()->new EntityNotFoundException("Cound not find petition " + petitionId));
 
         // save signature
+        signature.setPetition(petition);
         signature = signatureRepository.save(signature);
 
         // Add to petition
