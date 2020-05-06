@@ -4,11 +4,11 @@ import com.openclassrooms.springdatarest.petitionservice.domain.Activist;
 import com.openclassrooms.springdatarest.petitionservice.service.ActivistService;
 import com.openclassrooms.springdatarest.petitionservice.service.ModificationType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-
 
 @RestController
 @RequestMapping("/petitionservice/v1/activists")
@@ -16,6 +16,13 @@ public class ActivistController {
 
     @Autowired
     ActivistService activistService;
+
+    private static final Integer PAGE_SIZE=10;
+
+    @GetMapping
+    public Page<Activist> getActivistCollection(@RequestParam(defaultValue = "0", value = "page", required = false) Integer page) {
+        return activistService.getPagedActivists(page, PAGE_SIZE);
+    }
 
     @GetMapping("/{id}")
     public Activist getActivist(@PathVariable String id) {

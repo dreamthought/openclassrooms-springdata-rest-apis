@@ -3,6 +3,9 @@ package com.openclassrooms.springdatarest.petitionservice.service;
 import com.openclassrooms.springdatarest.petitionservice.domain.Activist;
 import com.openclassrooms.springdatarest.petitionservice.repository.ActivistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
@@ -65,5 +68,10 @@ public class ActivistService {
         storedActivist.setName(activist.getName());
         storedActivist.setEmail(activist.getEmail());
         return storedActivist;
+    }
+
+    public Page<Activist> getPagedActivists(Integer page, Integer pageSize) {
+        Pageable pageable = PageRequest.of(page, pageSize);
+        return activistRepository.findAll(pageable);
     }
 }
