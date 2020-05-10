@@ -1,4 +1,6 @@
 package com.openclassrooms.springdatarest.petitionservice.domain;
+import io.swagger.v3.oas.annotations.media.Schema;
+
 import javax.persistence.*;
 
 /**
@@ -7,18 +9,26 @@ import javax.persistence.*;
 @Entity
 public class Activist {
 
+    @Schema(description = "Unique ID of an Activist.",
+            example = "1", required = true)
     @Id
     @GeneratedValue
     private Long id;
+
+    @Schema(description = "First name of Activist", example = "Sal")
     private String name;
+
+    @Schema(description = "Surname of Activist", example = "Zazz")
     private String surname;
 
+    @Schema(description = "Middlename of Activist", example = "Jam")
     @Column(name="MIDDLENAME")
     private String middlename;
 
     @Embedded
     private PostalAddress address;
 
+    @Schema(description = "Email of Activist", example = "act@mail.example")
     private String email;
 
 
